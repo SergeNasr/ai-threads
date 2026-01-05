@@ -6,7 +6,6 @@ import {
   useRef,
   useState,
   type ReactNode,
-  type KeyboardEvent,
 } from "react";
 
 export interface DropdownItem<T = string> {
