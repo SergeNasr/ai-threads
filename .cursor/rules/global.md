@@ -32,11 +32,6 @@ pnpm test         # Unit tests (if applicable)
 
 **Do not finish until all checks pass.**
 
-### For UI Components (components/ui/*)
-4. Create a Storybook story file (e.g., button.stories.tsx)
-5. Run pnpm storybook and visually verify the component renders correctly
-6. Test all variants and states in Storybook
-
 ## Code Style
 
 ### TypeScript
