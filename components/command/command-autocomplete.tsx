@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { Dropdown, type DropdownItem } from '@/components/ui';
 import { SlashCommand } from '@/lib/types';
 import { getSuggestions } from './command-parser';
@@ -20,13 +20,12 @@ export function CommandAutocomplete({
   commands,
   className = '',
 }: CommandAutocompleteProps) {
-  const [suggestions, setSuggestions] = useState<SlashCommand[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const results = getSuggestions(query, commands);
-    setSuggestions(results);
-  }, [query, commands]);
+  const suggestions = useMemo(
+    () => getSuggestions(query, commands),
+    [query, commands]
+  );
 
   if (suggestions.length === 0) {
     return null;
@@ -40,7 +39,7 @@ export function CommandAutocomplete({
 
   return (
     <div ref={containerRef} className={className}>
-      <Dropdown
+      <Dropdown<SlashCommand>
         items={items}
         onSelect={(item) => onSelect(item.id)}
         onClose={onClose}
