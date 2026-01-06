@@ -22,31 +22,34 @@ export function ChatInput({
   commands,
   initialValue = "",
 }: ChatInputProps) {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(() => initialValue);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [commandQuery, setCommandQuery] = useState("");
   const [cursorPosition, setCursorPosition] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const autocompleteRef = useRef<HTMLDivElement>(null);
+  const prevThreadIdRef = useRef<string>(threadId);
   const { threads, commands: storeCommands } = useStore();
 
   const availableCommands = commands ?? storeCommands;
   const thread = threads[threadId];
 
   useEffect(() => {
-    if (initialValue) {
-      setValue(initialValue);
-      setTimeout(() => {
-        textareaRef.current?.focus();
-        if (textareaRef.current) {
-          const len = initialValue.length;
-          textareaRef.current.setSelectionRange(len, len);
-        }
-      }, 0);
-    } else if (!initialValue && value) {
-      setValue("");
+    if (prevThreadIdRef.current !== threadId) {
+      prevThreadIdRef.current = threadId;
+      const newValue = initialValue || "";
+      if (newValue !== value) {
+        setTimeout(() => {
+          setValue(newValue);
+          if (textareaRef.current) {
+            textareaRef.current.focus();
+            const len = newValue.length;
+            textareaRef.current.setSelectionRange(len, len);
+          }
+        }, 0);
+      }
     }
-  }, [threadId, initialValue]);
+  }, [threadId, initialValue, value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
