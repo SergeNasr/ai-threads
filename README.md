@@ -1,5 +1,7 @@
 # AI Threads
 
+[![CI](https://github.com/SergeNasr/ai-threads/actions/workflows/ci.yml/badge.svg)](https://github.com/SergeNasr/ai-threads/actions/workflows/ci.yml)
+
 Advanced chat interface for AI interactions with hierarchical threading, slash commands, and parallel execution.
 
 ## Features
