@@ -47,7 +47,7 @@ export function RunningThreadsPanel({
         <h3 className="text-text-primary text-sm font-semibold">
           Running Threads
         </h3>
-        <Button variant="ghost" className="h-auto p-1" onClick={onClose}>
+        <Button variant="ghost" className="h-auto p-1" onClick={onClose} aria-label="Close">
           <span className="text-text-secondary text-lg">×</span>
         </Button>
       </div>
