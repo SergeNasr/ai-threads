@@ -2,11 +2,6 @@ import { ThreadId, MessageId, Thread, ThreadStatus } from './types';
 import { useStore } from './store';
 import { aiService } from '@/mocks/ai-service';
 
-interface QueueItem {
-  threadId: ThreadId;
-  status: ThreadStatus;
-}
-
 class ThreadEngine {
   private queue: Set<ThreadId> = new Set();
   private processing: Set<ThreadId> = new Set();
@@ -41,7 +36,7 @@ class ThreadEngine {
     // Create child thread with branch context
     const childThreadId = store.createThread(
       parentThreadId,
-      selectedText ?? null,
+      selectedText ?? undefined,
       parentMessageId
     );
 
@@ -149,7 +144,6 @@ class ThreadEngine {
   }
 
   getQueueStatus(): { threadId: ThreadId; status: ThreadStatus }[] {
-    const store = useStore.getState();
     const statuses: { threadId: ThreadId; status: ThreadStatus }[] = [];
 
     // Add queued threads
