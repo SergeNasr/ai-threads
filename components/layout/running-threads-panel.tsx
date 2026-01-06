@@ -10,6 +10,13 @@ interface RunningThreadsPanelProps {
   onClose: () => void;
 }
 
+const getBadgeVariant = (status: ThreadStatus): "streaming" | "queued" | "error" | "default" => {
+  if (status === "streaming" || status === "queued" || status === "error") {
+    return status;
+  }
+  return "default";
+};
+
 export function RunningThreadsPanel({
   threads,
   onSelect,
@@ -54,8 +61,8 @@ export function RunningThreadsPanel({
             }}
             className="w-full flex items-start gap-3 px-4 py-3 hover:bg-bg-tertiary transition-colors text-left border-b border-border-subtle last:border-b-0"
           >
-            <Badge variant={status} className="shrink-0">
-              {status === "streaming" ? "Streaming" : "Queued"}
+            <Badge variant={getBadgeVariant(status)} className="shrink-0">
+              {status === "streaming" ? "Streaming" : status === "queued" ? "Queued" : status === "error" ? "Error" : "Idle"}
             </Badge>
             <div className="flex-1 min-w-0">
               <p className="text-text-primary text-sm truncate">

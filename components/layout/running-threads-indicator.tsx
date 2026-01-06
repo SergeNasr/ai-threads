@@ -1,7 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-
 interface RunningThreadsIndicatorProps {
   count: number;
   onClick: () => void;
