@@ -47,17 +47,21 @@ export function ThreadView({ threadId }: ThreadViewProps) {
 
   return (
     <div className="flex flex-col h-full bg-bg-primary">
-      <MessageList
-        messages={thread.messages}
-        threadStatus={thread.status}
-        onBranch={handleBranch}
-      />
-      <ChatInput
-        threadId={threadId}
-        onSubmit={handleSubmit}
-        disabled={thread.status === "streaming"}
-        initialValue={getInitialInputValue()}
-      />
+      <div className="flex-1 flex justify-center overflow-hidden">
+        <div className="w-full max-w-3xl flex flex-col h-full">
+          <MessageList
+            messages={thread.messages}
+            threadStatus={thread.status}
+            onBranch={handleBranch}
+          />
+          <ChatInput
+            threadId={threadId}
+            onSubmit={handleSubmit}
+            disabled={thread.status === "streaming"}
+            initialValue={getInitialInputValue()}
+          />
+        </div>
+      </div>
     </div>
   );
 }
