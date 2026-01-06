@@ -1,0 +1,13 @@
+{
+    "terminal.allowedCommands": [
+        "gh run list",
+        "gh run view",
+        "gh pr list",
+        "gh pr view",
+        "pnpm verify",
+        "pnpm test",
+        "pnpm lint",
+        "pnpm typecheck",
+        "pnpm build"
+    ]
+}
