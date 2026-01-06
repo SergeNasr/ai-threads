@@ -84,38 +84,43 @@ function DropdownInner<T = string>(
         `}
       >
         <ul ref={listRef} role="listbox" className="py-1">
-          {items.map((item, index) => (
-            <li
-              key={String(item.id)}
-              role="option"
-              aria-selected={index === selectedIndex}
-              onClick={() => onSelect(item)}
-              className={`
-                px-3 py-2
-                cursor-pointer
-                transition-colors duration-100
-                ${
-                  index === selectedIndex
-                    ? "bg-bg-tertiary text-text-primary"
-                    : "text-text-secondary hover:bg-bg-tertiary hover:text-text-primary"
-                }
-              `}
-            >
-              <div className="flex items-center gap-2">
-                {item.icon && (
-                  <span className="text-text-tertiary flex-shrink-0">{item.icon}</span>
-                )}
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium truncate">{item.label}</div>
-                  {item.description && (
-                    <div className="text-xs text-text-tertiary truncate">
-                      {item.description}
-                    </div>
+          {items.map((item, index) => {
+            const key = typeof item.id === 'object' && item.id !== null && 'id' in item.id 
+              ? String((item.id as { id: string }).id) 
+              : String(item.id) || index;
+            return (
+              <li
+                key={key}
+                role="option"
+                aria-selected={index === selectedIndex}
+                onClick={() => onSelect(item)}
+                className={`
+                  px-3 py-2
+                  cursor-pointer
+                  transition-colors duration-100
+                  ${
+                    index === selectedIndex
+                      ? "bg-bg-tertiary text-text-primary"
+                      : "text-text-secondary hover:bg-bg-tertiary hover:text-text-primary"
+                  }
+                `}
+              >
+                <div className="flex items-center gap-2">
+                  {item.icon && (
+                    <span className="text-text-tertiary flex-shrink-0">{item.icon}</span>
                   )}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium truncate">{item.label}</div>
+                    {item.description && (
+                      <div className="text-xs text-text-tertiary truncate">
+                        {item.description}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

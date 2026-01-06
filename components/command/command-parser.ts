@@ -45,7 +45,7 @@ export function parse(input: string, commands: SlashCommand[] = MVP_COMMANDS): P
 export function execute(
   command: SlashCommand,
   params: Record<string, string>,
-  threadContext: Message[]
+  _threadContext: Message[]
 ): string {
   let prompt = command.promptTemplate;
 
