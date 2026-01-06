@@ -23,8 +23,10 @@ interface DropdownProps<T = string> {
   className?: string;
 }
 
-export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
-  ({ items, onSelect, onClose, selectedIndex: controlledIndex, className = "" }, ref) => {
+function DropdownInner<T = string>(
+  { items, onSelect, onClose, selectedIndex: controlledIndex, className = "" }: DropdownProps<T>,
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
     const [internalIndex, setInternalIndex] = useState(0);
     const listRef = useRef<HTMLUListElement>(null);
     const selectedIndex = controlledIndex ?? internalIndex;
@@ -117,7 +119,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         </ul>
       </div>
     );
-  }
-);
+}
 
-Dropdown.displayName = "Dropdown";
+const DropdownBase = forwardRef(DropdownInner);
+DropdownBase.displayName = "Dropdown";
+
+export const Dropdown = DropdownBase as <T = string>(
+  props: DropdownProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> }
+) => React.ReactElement;
